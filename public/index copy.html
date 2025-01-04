@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleguide.css">
+    <script src="https://kit.fontawesome.com/d353161e11.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <main class="w-screen h-screen flex flex-col">
+    <div class="w-full flex-col space-y-10 flex items-center justify-center p-4">
+      <div class="flex w-full max-w-3xl text-[--putih] h-64">
+        <div class="h-full bg-[--hitam] flex items-center justify-center px-8 rounded-l-3xl w-fit relative overflow-hidden">
+          <!-- Barcode Effect -->
+          <div class="absolute left-0 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2 px-2 z-10">
+            <div class="bg-[--putih] w-10 h-2"></div>
+            <div class="bg-[--putih] w-10 h-2"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-2"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-2"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-2"></div>
+            <div class="bg-[--putih] w-10 h-0.5"></div>
+            <div class="bg-[--putih] w-10 h-2"></div>
+          </div>
+          <div>
+            <div class="absolute -top-8 right-28 text-[--kuning]">
+              <i class="fa-solid fa-sun text-9xl"></i>
+            </div>
+            <div class="absolute top-40 left-24 text-[--biru]">
+              <i class="fa-solid fa-cloud text-9xl"></i>
+            </div>
+            <div class="absolute top-48 left-16 text-[--putih]">
+              <i class="fa-solid fa-dove text-2xl"></i>
+            </div>
+            <div class="absolute top-20 left-32 text-[--putih]" style="transform: rotate(160deg); display: inline-block;">
+              <i class="fa-solid fa-plane text-8xl"></i>
+            </div>
+          </div>
+          <!-- Rotated Text -->
+          <span style="transform: rotate(270deg); display: inline-block;" class="font-bold text-2xl text-[--putih]">
+            Ticket Details
+          </span>
+        </div>
+        <div class="relative h-full flex flex-col items-center border-dashed justify-between border-2 bg-[--hitam] border-[--putih]">
+          <div class="absolute rounded-full w-8 h-8 -top-5"></div>
+          <div class="absolute rounded-full w-8 h-8 -bottom-5"></div>
+        </div>
+        <div class="h-full py-8 px-10 bg-[--hitam] flex-grow rounded-r-3xl flex flex-col overflow-hidden">
+          <div class="flex w-full justify-between items-center">
+            <div class="flex flex-col items-center">
+              <span id="ticketDeparture" contenteditable="true" class="uppercase text-4xl font-bold" onkeydown="restrictInput(event, 5, 'text')">UB</span>
+              <span class="text-[--abuabu] text-sm">Institution</span>
+            </div>
+            <div class="flex flex-col flex-grow items-center px-10">
+              <span class="font-bold text-xs text[--putih]">SI 23</span>
+              <div class="w-full flex items-center mt-2">
+                <div class="w-3 h-3 rounded-full border-2 border-[--hitam]"></div>
+                <div class="flex-grow border-t-2 border-[--ijo] border-dotted h-px"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mx-2 text-[--putih]">
+                  <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                </svg>
+                <div class="flex-grow border-t-2 border-[--ijo] border-dotted h-px"></div>
+                <div class="w-3 h-3 rounded-full border-2 border-[--hitam]"></div>
+              </div>
+              <div class="flex items-center px-3 rounded-full bg-[--ijo] h-8 mt-2">
+                <span class="text-sm text-[--hitam]">19h 04m</span>
+              </div>
+            </div>
+            <div class="flex flex-col items-center">
+              <span id="ticketArrival" class="text-4xl font-bold">UB</span>
+              <span class="text-[--abuabu] text-sm">Institution</span>
+            </div>
+          </div>
+          <div class="flex w-full mt-auto justify-between">
+            <div class="flex flex-col">
+              <span class="text-xs text-[--abuabu]">Date</span>
+              <div class="flex flex-nowrap">	
+                <span id="ticketDate" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">01</span>
+                <span class="font-mono">/</span>
+                <span id="ticketDate" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">09</span>
+                <span class="font-mono">/</span>
+                <span id="ticketDate1" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 4, 'number')">2004</span>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs text-[--abuabu]">Departure</span>
+              <div class="flex flex-nowrap">
+                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">19</span>
+                <span class="font-mono">:</span>
+                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">04</span>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs text-[--abuabu]">Passenger</span>
+              <span id="ticketPassenger" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 10, 'text')">Raffi</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs text-[--abuabu]">Gate/Seat</span>
+              <div class="flex flex-nowrap">
+                <span id="ticketGateSeat" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 3, 'number')">A11</span>
+                <span class="font-mono">/</span>
+                <span id="ticketGateSeat" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 3, 'number')">21C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function restrictInput(event, maxLength, type) {
+            var inputSpan = event.target;
+            var value = inputSpan.textContent;
+
+            // Cek jika panjang teks sudah mencapai maxLength
+            if (value.length >= maxLength && event.key !== "Backspace" && event.key !== "Delete") {
+              event.preventDefault();
+              return;
+            }
+
+            // Mengizinkan hanya angka untuk input yang bertipe 'number'
+            if (type === 'number' && !/[\d]/.test(event.key) && event.key !== "Backspace" && event.key !== "Delete") {
+              event.preventDefault();
+            }
+
+            // Mengizinkan hanya huruf untuk input yang bertipe 'text'
+            if (type === 'text' && !/[a-zA-Z\d]/.test(event.key) && event.key !== "Backspace" && event.key !== "Delete") {
+              event.preventDefault();
+            }
+          }
+        </script>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>
