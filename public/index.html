@@ -57,7 +57,7 @@
         <div class="h-full py-8 px-10 bg-[--hitam] flex-grow rounded-r-3xl flex flex-col overflow-hidden">
           <div class="flex w-full justify-between items-center">
             <div class="flex flex-col items-center">
-              <span id="ticketDeparture" contenteditable="true" class="uppercase text-4xl font-bold" onkeydown="restrictInput(event, 5, 'text')">UB</span>
+              <span id="ticketDeparture" contenteditable="true" class="uppercase text-4xl font-bold" data-maxlength="5" data-type="text">UB</span>
               <span class="text-[--abuabu] text-sm">Institution</span>
             </div>
             <div class="flex flex-col flex-grow items-center px-10">
@@ -84,31 +84,31 @@
             <div class="flex flex-col">
               <span class="text-xs text-[--abuabu]">Date</span>
               <div class="flex flex-nowrap">	
-                <span id="ticketDate" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">01</span>
+                <span id="ticketDate" contenteditable="true" class="font-mono" data-maxlength="2" data-type="number">01</span>
                 <span class="font-mono">/</span>
-                <span id="ticketDate" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">09</span>
+                <span id="ticketDate" contenteditable="true" class="font-mono" data-maxlength="2" data-type="number">09</span>
                 <span class="font-mono">/</span>
-                <span id="ticketDate1" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 4, 'number')">2004</span>
+                <span id="ticketDate1" contenteditable="true" class="font-mono" data-maxlength="4" data-type="number">2004</span>
               </div>
             </div>
             <div class="flex flex-col">
               <span class="text-xs text-[--abuabu]">Departure</span>
               <div class="flex flex-nowrap">
-                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">19</span>
+                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" data-maxlength="2" data-type="number">19</span>
                 <span class="font-mono">:</span>
-                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 2, 'number')">04</span>
+                <span id="ticketDepartureTime" contenteditable="true" class="font-mono" data-maxlength="2" data-type="number">04</span>
               </div>
             </div>
             <div class="flex flex-col">
               <span class="text-xs text-[--abuabu]">Passenger</span>
-              <span id="ticketPassenger" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 10, 'text')">Raffi</span>
+              <span id="ticketPassenger" contenteditable="true" class="font-mono" data-maxlength="10" data-type="text">Raffi</span>
             </div>
             <div class="flex flex-col">
               <span class="text-xs text-[--abuabu]">Gate/Seat</span>
               <div class="flex flex-nowrap">
-                <span id="ticketGateSeat" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 3, 'number')">A11</span>
+                <span id="ticketGateSeat" contenteditable="true" class="font-mono uppercase" data-maxlength="3" data-type="text">A11</span>
                 <span class="font-mono">/</span>
-                <span id="ticketGateSeat" contenteditable="true" class="font-mono" onkeydown="restrictInput(event, 3, 'number')">21C</span>
+                <span id="ticketGateSeat" contenteditable="true" class="font-mono uppercase" data-maxlength="3" data-type="text">21C</span>
               </div>
             </div>
           </div>
@@ -118,24 +118,50 @@
           function restrictInput(event, maxLength, type) {
             var inputSpan = event.target;
             var value = inputSpan.textContent;
-
-            // Cek jika panjang teks sudah mencapai maxLength
-            if (value.length >= maxLength && event.key !== "Backspace" && event.key !== "Delete") {
-              event.preventDefault();
+        
+            // Validasi panjang teks
+            if (value.length > maxLength) {
+              inputSpan.textContent = value.substring(0, maxLength);
+              setCaretPosition(inputSpan, maxLength); // Atur posisi kursor
               return;
             }
-
-            // Mengizinkan hanya angka untuk input yang bertipe 'number'
-            if (type === 'number' && !/[\d]/.test(event.key) && event.key !== "Backspace" && event.key !== "Delete") {
-              event.preventDefault();
-            }
-
-            // Mengizinkan hanya huruf untuk input yang bertipe 'text'
-            if (type === 'text' && !/[a-zA-Z\d]/.test(event.key) && event.key !== "Backspace" && event.key !== "Delete") {
-              event.preventDefault();
+        
+            // Validasi tipe input
+            if (type === 'number') {
+              // Hapus semua karakter non-angka
+              var numericValue = value.replace(/[^0-9]/g, '');
+              if (numericValue !== value) {
+                inputSpan.textContent = numericValue;
+                setCaretPosition(inputSpan, numericValue.length);
+              }
+            } else if (type === 'text') {
+              // Hapus semua karakter non-huruf/angka
+              var textValue = value.replace(/[^a-zA-Z0-9]/g, '');
+              if (textValue !== value) {
+                inputSpan.textContent = textValue;
+                setCaretPosition(inputSpan, textValue.length);
+              }
             }
           }
+        
+          function setCaretPosition(el, position) {
+            var range = document.createRange();
+            var sel = window.getSelection();
+            range.setStart(el.childNodes[0], position);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+        
+          // Event listener untuk mendukung perangkat seluler
+          document.querySelectorAll('[contenteditable]').forEach(function (span) {
+            span.addEventListener('input', function (event) {
+              restrictInput(event, span.getAttribute('data-maxlength'), span.getAttribute('data-type'));
+            });
+          });
         </script>
+        
+        
 
       </div>
     </div>
